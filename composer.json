@@ -18,6 +18,6 @@
         "yosymfony/toml": "0.4.x-dev"
     },
     "autoload": {
-        "files": ["tomload.php"]
+        "files": ["zf1-tomload.php"]
     }
 }
