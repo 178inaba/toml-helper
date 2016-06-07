@@ -1,12 +1,12 @@
 {
-    "name": "178inaba/tomload",
-    "description": "helper to load the toml.",
-    "keywords": ["helper", "toml", "configuration"],
+    "name": "178inaba/zf1-tomload",
+    "description": "helper for loading toml in zend framework 1.",
+    "keywords": ["zend framework 1", "zf1", "toml", "helper", "configuration"],
     "license": "MIT",
-    "homepage": "https://github.com/178inaba/tomload",
+    "homepage": "https://github.com/178inaba/zf1-tomload",
     "support": {
-        "issues": "https://github.com/178inaba/tomload/issues",
-        "source": "https://github.com/178inaba/tomload"
+        "issues": "https://github.com/178inaba/zf1-tomload/issues",
+        "source": "https://github.com/178inaba/zf1-tomload"
     },
     "authors": [
         {
@@ -15,7 +15,7 @@
         }
     ],
     "require": {
-        "yosymfony/toml": "*"
+        "yosymfony/toml": "0.4.x-dev"
     },
     "autoload": {
         "files": ["tomload.php"]
