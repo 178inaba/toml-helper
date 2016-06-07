@@ -15,7 +15,7 @@
         }
     ],
     "require": {
-        "yosymfony/toml": "0.4.x-dev"
+        "yosymfony/toml": "v0.3.3"
     },
     "autoload": {
         "files": ["zf1-tomload.php"]
