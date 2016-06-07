@@ -1,0 +1,23 @@
+{
+    "name": "178inaba/tomload",
+    "description": "helper to load the toml.",
+    "keywords": ["helper", "toml", "configuration"],
+    "license": "MIT",
+    "homepage": "https://github.com/178inaba/tomload",
+    "support": {
+        "issues": "https://github.com/178inaba/tomload/issues",
+        "source": "https://github.com/178inaba/tomload"
+    },
+    "authors": [
+        {
+            "name": "178inaba",
+            "email": "178inaba@users.noreply.github.com"
+        }
+    ],
+    "require": {
+        "yosymfony/toml": "*"
+    },
+    "autoload": {
+        "files": ["tomload.php"]
+    }
+}
