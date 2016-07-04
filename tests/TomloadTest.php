@@ -2,7 +2,7 @@
 
 use PHPUnit\Framework\TestCase;
 
-class Zf1TomloadTest extends TestCase
+class TomloadTest extends TestCase
 {
     public function testToml()
     {
