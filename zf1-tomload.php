@@ -3,7 +3,7 @@
 use Yosymfony\Toml\Toml;
 
 if (! function_exists('toml')) {
-    function toml($key = null)
+    function toml($keyChain = null)
     {
         $toml = [];
 
@@ -14,13 +14,13 @@ if (! function_exists('toml')) {
             $toml[$filename] = Toml::Parse($path);
         }
 
-        if ($key === null) {
+        if ($keyChain === null) {
             return $toml;
         }
 
-        $keys = explode('.', $key);
-        foreach ($keys as $value) {
-            $toml = $toml[$value];
+        $keys = explode('.', $keyChain);
+        foreach ($keys as $key) {
+            $toml = $toml[$key];
         }
 
         return $toml;
