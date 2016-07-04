@@ -7,11 +7,16 @@ if (! function_exists('toml')) {
     {
         $toml = [];
 
-        $paths = glob('../application/configs/toml/*.toml');
-        foreach ($paths as $path) {
-            $filename = basename($path, '.toml');
+        // get directory
+        $tomlDir = getenv('TOML_DIR');
+        if ($tomlDir === false) {
+            // default
+            $tomlDir = '../tomls';
+        }
 
-            $toml[$filename] = Toml::Parse($path);
+        $paths = glob($tomlDir.'/*.toml');
+        foreach ($paths as $path) {
+            $toml[basename($path, '.toml')] = Toml::Parse($path);
         }
 
         if ($keyChain === null) {
