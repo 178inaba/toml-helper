@@ -13,6 +13,53 @@ helper for loading [toml](https://github.com/toml-lang/toml).
 $ composer require 178inaba/tomload
 ```
 
+## env
+
+### TOML_DIR
+
+default toml directory is `../tomls`.  
+change toml directory to set `TOML_DIR`.
+
+## usage
+
+directory structure is
+
+```
+app
+|-- public
+|    +-- index.php
+|-- foo
+|    +-- bar
+|         +-- example.toml
+...
+```
+
+example.toml is
+
+```toml
+[author]
+PHP = "Rasmus Lerdorf"
+```
+
+index.php is
+
+```php
+<?php
+
+require __DIR__.'/../vendor/autoload.php';
+putenv('TOML_DIR='.__DIR__.'/../foo/bar');
+
+$phpAuthor = toml('example.author.PHP');
+echo $phpAuthor."\n";
+```
+
+run
+
+```bash
+$ php index.php
+Rasmus Lerdorf
+```
+
 ## licence
 
 MIT
