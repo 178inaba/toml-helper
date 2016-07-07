@@ -1,5 +1,6 @@
 # tomload
 
+[![Build Status](https://travis-ci.org/178inaba/tomload.svg?branch=master)](https://travis-ci.org/178inaba/tomload)
 [![Total Downloads](https://poser.pugx.org/178inaba/tomload/downloads)](https://packagist.org/packages/178inaba/tomload)
 [![Latest Stable Version](https://poser.pugx.org/178inaba/tomload/v/stable)](https://packagist.org/packages/178inaba/tomload)
 [![Latest Unstable Version](https://poser.pugx.org/178inaba/tomload/v/unstable)](https://packagist.org/packages/178inaba/tomload)
