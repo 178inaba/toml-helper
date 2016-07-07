@@ -17,9 +17,6 @@
     "require": {
         "yosymfony/toml": "^0.3.3"
     },
-    "require-dev": {
-        "phpunit/phpunit": "^5.4"
-    },
     "autoload": {
         "files": ["tomload.php"]
     }
