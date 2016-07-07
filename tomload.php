@@ -25,7 +25,7 @@ if (! function_exists('toml')) {
 
         $keys = explode('.', $keyChain);
         foreach ($keys as $key) {
-            $toml = $toml[$key];
+            $toml = @$toml[$key];
         }
 
         return $toml;

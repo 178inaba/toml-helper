@@ -4,11 +4,20 @@ use PHPUnit\Framework\TestCase;
 
 class TomloadTest extends TestCase
 {
-    public function testToml()
+    protected function setUp()
     {
         putenv('TOML_DIR='.__DIR__.'/tomls');
-        $value = toml('test.test.key');
+    }
 
+    public function testGetValue()
+    {
+        $value = toml('test.hash.key');
         $this->assertEquals('value', $value);
+    }
+
+    public function testNotExistKeyIsNull()
+    {
+        $value = toml('test.not_exist');
+        $this->assertNull($value);
     }
 }
