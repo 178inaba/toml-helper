@@ -1,12 +1,12 @@
 {
-    "name": "178inaba/tomload",
+    "name": "178inaba/toml-helper",
     "description": "helper for loading toml.",
     "keywords": ["toml", "helper", "config"],
     "license": "MIT",
-    "homepage": "https://github.com/178inaba/tomload",
+    "homepage": "https://github.com/178inaba/toml-helper",
     "support": {
-        "issues": "https://github.com/178inaba/tomload/issues",
-        "source": "https://github.com/178inaba/tomload"
+        "issues": "https://github.com/178inaba/toml-helper/issues",
+        "source": "https://github.com/178inaba/toml-helper"
     },
     "authors": [
         {
@@ -21,6 +21,6 @@
         "phpunit/phpunit": "^5.4"
     },
     "autoload": {
-        "files": ["tomload.php"]
+        "files": ["toml-helper.php"]
     }
 }
