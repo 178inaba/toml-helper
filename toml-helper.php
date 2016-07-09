@@ -21,7 +21,8 @@ if (! function_exists('toml')) {
 
             $toml = $m->get('178inaba/toml_helper:toml');
             if ($toml === false) {
-                $m->set('178inaba/toml_helper:toml', _parse_toml());
+                $toml = _parse_toml();
+                $m->set('178inaba/toml_helper:toml', $toml);
             }
         }
 
