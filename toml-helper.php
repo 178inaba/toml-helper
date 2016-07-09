@@ -8,10 +8,11 @@ if (! function_exists('toml')) {
         $toml = [];
 
         $m = null;
+        $mId = '178inaba/toml_helper:toml';
         if (extension_loaded('memcache')) {
             $m = new Memcache();
         } elseif (extension_loaded('memcached')) {
-            $m = new Memcached();
+            $m = new Memcached($mId);
         }
 
         if ($m === null) {
@@ -19,10 +20,10 @@ if (! function_exists('toml')) {
         } else {
             $m->addServer('localhost', 11211);
 
-            $toml = $m->get('178inaba/toml_helper:toml');
+            $toml = $m->get($mId);
             if ($toml === false) {
                 $toml = _parse_toml();
-                $m->set('178inaba/toml_helper:toml', $toml);
+                $m->set($mId, $toml);
             }
         }
 
