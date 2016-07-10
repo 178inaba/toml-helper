@@ -8,26 +8,18 @@ if (! function_exists('toml')) {
         $toml = [];
 
         $m = null;
-        $mId = '178inaba/toml_helper:toml';
-        $host = _get_mem_host();
-        $port = _get_mem_port();
-        if (extension_loaded('memcached')) {
-            $m = new Memcached($mId);
-            if (empty($m->getServerList())) {
-                $m->addServer($host, $port);
-            }
-        } elseif (extension_loaded('memcache')) {
-            $m = new Memcache();
-            $m->addServer($host, $port);
+        if (getenv('TOML_USE_MEM')) {
+            $m = _get_memcache_d();
         }
 
         if ($m === null) {
             $toml = _parse_toml();
         } else {
-            $toml = @$m->get($mId);
+            $mKey = '178inaba/toml_helper:toml';
+            $toml = @$m->get($mKey);
             if ($toml === false) {
                 $toml = _parse_toml();
-                $m->set($mId, $toml);
+                $m->set($mKey, $toml);
             }
         }
 
@@ -82,5 +74,23 @@ if (! function_exists('toml')) {
         }
 
         return $port;
+    }
+
+    function _get_memcache_d()
+    {
+        $m = null;
+        $host = _get_mem_host();
+        $port = _get_mem_port();
+        if (extension_loaded('memcached')) {
+            $m = new Memcached('178inaba/toml_helper');
+            if (empty($m->getServerList())) {
+                $m->addServer($host, $port);
+            }
+        } elseif (extension_loaded('memcache')) {
+            $m = new Memcache();
+            $m->addServer($host, $port);
+        }
+
+        return $m;
     }
 }
