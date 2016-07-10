@@ -9,13 +9,15 @@ if (! function_exists('toml')) {
 
         $m = null;
         $mId = '178inaba/toml_helper:toml';
+        $host = _get_mem_host();
+        $port = _get_mem_port();
         if (extension_loaded('memcache')) {
             $m = new Memcache();
-            $m->addServer('localhost', 11211);
+            $m->addServer($host, $port);
         } elseif (extension_loaded('memcached')) {
             $m = new Memcached($mId);
             if (empty($m->getServerList())) {
-                $m->addServer('localhost', 11211);
+                $m->addServer($host, $port);
             }
         }
 
@@ -58,5 +60,27 @@ if (! function_exists('toml')) {
         }
 
         return $toml;
+    }
+
+    function _get_mem_host()
+    {
+        $host = getenv('MEM_HOST');
+        if ($host === false) {
+            // default
+            $host = 'localhost';
+        }
+
+        return $host;
+    }
+
+    function _get_mem_port()
+    {
+        $port = getenv('MEM_PORT');
+        if ($port === false) {
+            // default
+            $port = 11211;
+        }
+
+        return $port;
     }
 }
