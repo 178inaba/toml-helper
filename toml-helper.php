@@ -11,14 +11,14 @@ if (! function_exists('toml')) {
         $mId = '178inaba/toml_helper:toml';
         $host = _get_mem_host();
         $port = _get_mem_port();
-        if (extension_loaded('memcache')) {
-            $m = new Memcache();
-            $m->addServer($host, $port);
-        } elseif (extension_loaded('memcached')) {
+        if (extension_loaded('memcached')) {
             $m = new Memcached($mId);
             if (empty($m->getServerList())) {
                 $m->addServer($host, $port);
             }
+        } elseif (extension_loaded('memcache')) {
+            $m = new Memcache();
+            $m->addServer($host, $port);
         }
 
         if ($m === null) {
