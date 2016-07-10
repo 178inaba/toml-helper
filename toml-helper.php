@@ -54,7 +54,7 @@ if (! function_exists('toml')) {
         return $toml;
     }
 
-    function _parse_toml(array $paths): array
+    function _parse_toml(array $paths)
     {
         $toml = [];
 
@@ -65,7 +65,7 @@ if (! function_exists('toml')) {
         return $toml;
     }
 
-    function _get_mem_host(): string
+    function _get_mem_host()
     {
         $host = getenv('MEM_HOST');
         if ($host === false) {
@@ -76,7 +76,7 @@ if (! function_exists('toml')) {
         return $host;
     }
 
-    function _get_mem_port(): int
+    function _get_mem_port()
     {
         $port = getenv('MEM_PORT');
         if ($port === false) {
@@ -105,7 +105,7 @@ if (! function_exists('toml')) {
         return $m;
     }
 
-    function _get_paths(): array
+    function _get_paths()
     {
         // get directory
         $tomlDir = getenv('TOML_DIR');
