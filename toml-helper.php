@@ -8,7 +8,7 @@ if (! function_exists('toml')) {
         $toml = [];
 
         $m = null;
-        if (getenv('TOML_USE_MEM')) {
+        if (! getenv('TOML_NOT_USE_MEM')) {
             $m = _get_memcache_d();
         }
 
