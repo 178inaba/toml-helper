@@ -12,14 +12,33 @@ if (! function_exists('toml')) {
             $m = _get_memcache_d();
         }
 
+        $paths = _get_paths();
         if ($m === null) {
-            $toml = _parse_toml();
+            $toml = _parse_toml($paths);
         } else {
-            $mKey = '178inaba/toml_helper:toml';
-            $toml = @$m->get($mKey);
-            if ($toml === false) {
-                $toml = _parse_toml();
-                $m->set($mKey, $toml);
+            $maxUpdateTime = 0;
+            foreach ($paths as $path) {
+                $updateTime = filemtime($path);
+                if ($maxUpdateTime < $updateTime) {
+                    $maxUpdateTime = $updateTime;
+                }
+            }
+
+            $mBaseKey = '178inaba/toml_helper:';
+            $mTimeKey = __DIR__.':time';
+            $mTomlKey = __DIR__.':toml';
+
+            $memUpdateTime = @$m->get($mBaseKey.$mTimeKey);
+            if ($memUpdateTime < $maxUpdateTime) {
+                $toml = _parse_toml($paths);
+                $m->set($mBaseKey.$mTomlKey, $toml);
+                $m->set($mBaseKey.$mTimeKey, $maxUpdateTime);
+            } else {
+                $toml = @$m->get($mBaseKey.$mTomlKey);
+                if ($toml === false) {
+                    $toml = _parse_toml($paths);
+                    $m->set($mBaseKey.$mTomlKey, $toml);
+                }
             }
         }
 
@@ -35,18 +54,10 @@ if (! function_exists('toml')) {
         return $toml;
     }
 
-    function _parse_toml()
+    function _parse_toml(array $paths): array
     {
         $toml = [];
 
-        // get directory
-        $tomlDir = getenv('TOML_DIR');
-        if ($tomlDir === false) {
-            // default
-            $tomlDir = '../tomls';
-        }
-
-        $paths = glob($tomlDir.'/*.toml');
         foreach ($paths as $path) {
             $toml[basename($path, '.toml')] = Toml::Parse($path);
         }
@@ -54,7 +65,7 @@ if (! function_exists('toml')) {
         return $toml;
     }
 
-    function _get_mem_host()
+    function _get_mem_host(): string
     {
         $host = getenv('MEM_HOST');
         if ($host === false) {
@@ -65,7 +76,7 @@ if (! function_exists('toml')) {
         return $host;
     }
 
-    function _get_mem_port()
+    function _get_mem_port(): int
     {
         $port = getenv('MEM_PORT');
         if ($port === false) {
@@ -92,5 +103,17 @@ if (! function_exists('toml')) {
         }
 
         return $m;
+    }
+
+    function _get_paths(): array
+    {
+        // get directory
+        $tomlDir = getenv('TOML_DIR');
+        if ($tomlDir === false) {
+            // default
+            $tomlDir = '../tomls';
+        }
+
+        return glob($tomlDir.'/*.toml');
     }
 }
