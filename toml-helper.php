@@ -24,7 +24,7 @@ if (! function_exists('toml')) {
         if ($m === null) {
             $toml = _parse_toml();
         } else {
-            $toml = $m->get($mId);
+            $toml = @$m->get($mId);
             if ($toml === false) {
                 $toml = _parse_toml();
                 $m->set($mId, $toml);
