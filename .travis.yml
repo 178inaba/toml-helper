@@ -5,4 +5,22 @@ php:
   - 7.0
   - hhvm
   - nightly
-install: composer install
+env:
+  - EXT=none
+  - EXT=memcache
+  - EXT=memcached
+matrix:
+  exclude:
+    - php: 7.0
+      env: EXT=memcache
+    - php: nightly
+      env: EXT=memcache
+services:
+  - memcached
+before_install:
+  - if [[ $EXT = memcache && $TRAVIS_PHP_VERSION != hhvm ]]; then echo "extension = memcache.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; fi
+  - if [[ $EXT = memcached && $TRAVIS_PHP_VERSION != hhvm ]]; then echo "extension = memcached.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; fi
+install:
+  - composer install
+script:
+  - vendor/bin/phpunit
