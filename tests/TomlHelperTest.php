@@ -9,12 +9,18 @@ class TomlHelperTest extends TestCase
         putenv('TOML_DIR='.__DIR__.'/tomls');
     }
 
+    /**
+     * @group standard
+     */
     public function testGetValue()
     {
         $value = toml('test.hash.key');
         $this->assertEquals('value', $value);
     }
 
+    /**
+     * @group standard
+     */
     public function testNotExistKeyIsNull()
     {
         $value = toml('test.not_exist');
