@@ -2,7 +2,7 @@
 
 use PHPUnit\Framework\TestCase;
 
-class TomlHelperTest extends TestCase
+class HelperTest extends TestCase
 {
     protected function setUp()
     {
