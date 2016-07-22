@@ -7,11 +7,11 @@ class ClassTest extends TestCase
 {
     /**
      * @expectedException Error
-     * @group standard
+     * @group 7.0
      */
     public function testNewToError()
     {
-        //new TomlHelper;
+        new TomlHelper;
     }
 
     /**
@@ -30,7 +30,7 @@ class ClassTest extends TestCase
 
     /**
      * @expectedException Error
-     * @group standard
+     * @group 7.0
      */
     public function testOverwriteInstance()
     {

@@ -24,3 +24,4 @@ install:
   - composer install
 script:
   - vendor/bin/phpunit --group standard
+  - if [[ $TRAVIS_PHP_VERSION = 7.0 || $TRAVIS_PHP_VERSION = nightly ]]; then vendor/bin/phpunit --group 7.0; fi
