@@ -37,4 +37,14 @@ class ClassTest extends TestCase
         $helper = TomlHelper::getInstance();
         $helper->instance = true;
     }
+
+    /**
+     * @expectedException Exception
+     * @group standard
+     */
+    public function testClone()
+    {
+        $helper = TomlHelper::getInstance();
+        $helper2 = clone $helper;
+    }
 }

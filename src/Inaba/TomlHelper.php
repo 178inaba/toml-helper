@@ -2,6 +2,8 @@
 
 namespace Inaba;
 
+use Exception;
+
 class TomlHelper
 {
     /**
@@ -33,5 +35,15 @@ class TomlHelper
         }
 
         return self::$instance;
+    }
+
+    /**
+     * Clone does not allow.
+     *
+     * @return void
+     */
+    final public function __clone()
+    {
+        throw new Exception('Clone is not allowed against '.__CLASS__.'.');
     }
 }
