@@ -16,7 +16,7 @@ class TomlHelper
     /**
      * Constructor.
      * Keep in private so as not new let from outside.
-     * Not override.
+     * Can not override.
      *
      * @return void
      */
@@ -40,7 +40,7 @@ class TomlHelper
 
     /**
      * Clone does not allow.
-     * Not override.
+     * Can not override.
      *
      * @return void
      */
