@@ -16,10 +16,11 @@ class TomlHelper
     /**
      * Constructor.
      * Keep in private so as not new let from outside.
+     * Not override.
      *
      * @return void
      */
-    private function __construct()
+    final private function __construct()
     {
     }
 
@@ -39,6 +40,7 @@ class TomlHelper
 
     /**
      * Clone does not allow.
+     * Not override.
      *
      * @return void
      */
