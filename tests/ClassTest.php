@@ -50,7 +50,7 @@ class ClassTest extends TestCase
 
     /**
      * @expectedException Error
-     * @group standard
+     * @group 7.0
      */
     public function testAssignmentUseMem()
     {
@@ -60,7 +60,7 @@ class ClassTest extends TestCase
 
     /**
      * @expectedException Error
-     * @group standard
+     * @group 7.0
      */
     public function testAssignmentHost()
     {
@@ -70,7 +70,7 @@ class ClassTest extends TestCase
 
     /**
      * @expectedException Error
-     * @group standard
+     * @group 7.0
      */
     public function testAssignmentPort()
     {
