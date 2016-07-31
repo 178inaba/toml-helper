@@ -47,4 +47,53 @@ class ClassTest extends TestCase
         $helper = TomlHelper::getInstance();
         $helper2 = clone $helper;
     }
+
+    /**
+     * @expectedException Error
+     * @group standard
+     */
+    public function testAssignmentUseMem()
+    {
+        $helper = TomlHelper::getInstance();
+        $helper->useMem = false;
+    }
+
+    /**
+     * @expectedException Error
+     * @group standard
+     */
+    public function testAssignmentHost()
+    {
+        $helper = TomlHelper::getInstance();
+        $helper->host = 'test';
+    }
+
+    /**
+     * @expectedException Error
+     * @group standard
+     */
+    public function testAssignmentPort()
+    {
+        $helper = TomlHelper::getInstance();
+        $helper->port = 1234;
+    }
+
+    /**
+     * @group standard
+     */
+    public function testGetterSetter()
+    {
+        $useMem = false;
+        $host = 'test';
+        $port = 1234;
+
+        $helper = TomlHelper::getInstance();
+        $helper->setUseMem($useMem)
+            ->setHost($host)
+            ->setPort($port);
+
+        $this->assertSame($useMem, $helper->getUseMem());
+        $this->assertSame($host, $helper->getHost());
+        $this->assertSame($port, $helper->getPort());
+    }
 }

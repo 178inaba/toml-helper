@@ -15,6 +15,27 @@ class TomlHelper
     private static $instance;
 
     /**
+     * Is use Memcached.
+     *
+     * @var bool
+     */
+    private $useMem = true;
+
+    /**
+     * Memcached server host.
+     *
+     * @var string
+     */
+    private $host = 'localhost';
+
+    /**
+     * Memcached server port.
+     *
+     * @var int
+     */
+    private $port = 11211;
+
+    /**
      * Constructor.
      * Keep in private so as not new let from outside.
      * Can not override.
@@ -50,15 +71,93 @@ class TomlHelper
         throw new Exception('Clone is not allowed against '.__CLASS__.'.');
     }
 
+    /**
+     * Get the is use Memcached.
+     *
+     * @return bool
+     */
+    public function getUseMem()
+    {
+        return $this->useMem;
+    }
+
+    /**
+     * Set the is use Memcached.
+     * Can method chain.
+     *
+     * @param  bool  $useMem
+     * @return $this
+     */
+    public function setUseMem($useMem)
+    {
+        $this->useMem = $useMem;
+
+        return $this;
+    }
+
+    /**
+     * Get hostname of Memcached server.
+     *
+     * @return string
+     */
+    public function getHost()
+    {
+        return $this->host;
+    }
+
+    /**
+     * Set hostname of Memcached server.
+     * Can method chain.
+     *
+     * @param  string  $host
+     * @return $this
+     */
+    public function setHost($host)
+    {
+        $this->host = $host;
+
+        return $this;
+    }
+
+    /**
+     * Get port of Memcached server.
+     *
+     * @return int
+     */
+    public function getPort()
+    {
+        return $this->port;
+    }
+
+    /**
+     * Set port of Memcached server.
+     * Can method chain.
+     *
+     * @param  int  $port
+     * @return $this
+     */
+    public function setPort($port)
+    {
+        $this->port = $port;
+
+        return $this;
+    }
+
     // TODO
 
+    /**
+     * Get toml value.
+     *
+     * @param  string|null  $keyChain
+     * @return mixed
+     */
     public function toml($keyChain = null)
     {
         $toml = [];
 
         $m = null;
-        if (! getenv('TOML_NOT_USE_MEM')) {
-            $m = _get_memcache_d();
+        if ($this->useMem) {
+            $m = $this->getMemcacheD();
         }
 
         $paths = _get_paths();
@@ -103,6 +202,27 @@ class TomlHelper
         return $toml;
     }
 
+    /**
+     * Get use memcached or memcache class.
+     *
+     * @return \Memcached|\Memcache|null
+     */
+    private function getMemcacheD()
+    {
+        $m = null;
+        if (extension_loaded('memcached')) {
+            $m = new Memcached('178inaba/toml_helper');
+            if (empty($m->getServerList())) {
+                $m->addServer($this->host, $this->port);
+            }
+        } elseif (extension_loaded('memcache')) {
+            $m = new Memcache();
+            $m->addServer($this->host, $this->port);
+        }
+
+        return $m;
+    }
+
     private function parse_toml(array $paths)
     {
         $toml = [];
@@ -112,46 +232,6 @@ class TomlHelper
         }
 
         return $toml;
-    }
-
-    private function get_mem_host()
-    {
-        $host = getenv('MEM_HOST');
-        if ($host === false) {
-            // default
-            $host = 'localhost';
-        }
-
-        return $host;
-    }
-
-    private function get_mem_port()
-    {
-        $port = getenv('MEM_PORT');
-        if ($port === false) {
-            // default
-            $port = 11211;
-        }
-
-        return $port;
-    }
-
-    private function get_memcache_d()
-    {
-        $m = null;
-        $host = _get_mem_host();
-        $port = _get_mem_port();
-        if (extension_loaded('memcached')) {
-            $m = new Memcached('178inaba/toml_helper');
-            if (empty($m->getServerList())) {
-                $m->addServer($host, $port);
-            }
-        } elseif (extension_loaded('memcache')) {
-            $m = new Memcache();
-            $m->addServer($host, $port);
-        }
-
-        return $m;
     }
 
     private function get_paths()
