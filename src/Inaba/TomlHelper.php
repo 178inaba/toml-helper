@@ -2,6 +2,8 @@
 
 namespace Inaba;
 
+use Memcache;
+use Memcached;
 use Exception;
 use Yosymfony\Toml\Toml;
 
