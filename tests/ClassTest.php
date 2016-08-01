@@ -95,5 +95,11 @@ class ClassTest extends TestCase
         $this->assertSame($useMem, $helper->getUseMem());
         $this->assertSame($host, $helper->getHost());
         $this->assertSame($port, $helper->getPort());
+
+        $helper2 = TomlHelper::getInstance();
+
+        $this->assertSame($useMem, $helper2->getUseMem());
+        $this->assertSame($host, $helper2->getHost());
+        $this->assertSame($port, $helper2->getPort());
     }
 }
