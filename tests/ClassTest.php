@@ -102,4 +102,38 @@ class ClassTest extends TestCase
         $this->assertSame($host, $helper2->getHost());
         $this->assertSame($port, $helper2->getPort());
     }
+
+    /**
+     * @group none
+     */
+    public function testGetMemcacheDNone()
+    {
+        $this->assertSame(null, $this->execPrivateMethod('getMemcacheD'));
+    }
+
+    /**
+     * @group memcache
+     */
+    public function testGetMemcacheDMemcache()
+    {
+        $this->assertInstanceOf(Memcache::class, $this->execPrivateMethod('getMemcacheD'));
+    }
+
+    /**
+     * @group memcached
+     */
+    public function testGetMemcacheDMemcached()
+    {
+        $this->assertInstanceOf(Memcached::class, $this->execPrivateMethod('getMemcacheD'));
+    }
+
+    private function execPrivateMethod($name)
+    {
+        $helper = TomlHelper::getInstance();
+        $class = new ReflectionClass($helper);
+        $method = $class->getMethod($name);
+        $method->setAccessible(true);
+
+        return $method->invoke($helper);
+    }
 }
