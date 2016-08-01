@@ -120,6 +120,7 @@ class ClassTest extends TestCase
     }
 
     /**
+     * @group hhvm
      * @group memcached
      */
     public function testGetMemcacheDMemcached()
