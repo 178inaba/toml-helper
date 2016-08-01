@@ -195,7 +195,7 @@ class TomlHelper
 
         $paths = glob($this->tomlDir.'/*.toml');
         if ($m === null) {
-            $toml = _parse_toml($paths);
+            $toml = $this->parseToml($paths);
         } else {
             $maxUpdateTime = 0;
             foreach ($paths as $path) {
@@ -211,13 +211,13 @@ class TomlHelper
 
             $memUpdateTime = @$m->get($mBaseKey.$mTimeKey);
             if ($memUpdateTime < $maxUpdateTime) {
-                $toml = _parse_toml($paths);
+                $toml = $this->parseToml($paths);
                 $m->set($mBaseKey.$mTomlKey, $toml);
                 $m->set($mBaseKey.$mTimeKey, $maxUpdateTime);
             } else {
                 $toml = @$m->get($mBaseKey.$mTomlKey);
                 if ($toml === false) {
-                    $toml = _parse_toml($paths);
+                    $toml = $this->parseToml($paths);
                     $m->set($mBaseKey.$mTomlKey, $toml);
                 }
             }
@@ -256,7 +256,13 @@ class TomlHelper
         return $m;
     }
 
-    private function parse_toml(array $paths)
+    /**
+     * Parse toml files.
+     *
+     * @param  array  $paths
+     * @return array
+     */
+    private function parseToml(array $paths)
     {
         $toml = [];
 

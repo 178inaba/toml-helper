@@ -6,7 +6,7 @@ class HelperTest extends TestCase
 {
     protected function setUp()
     {
-        putenv('TOML_DIR='.__DIR__.'/tomls');
+        putenv('TOML_DIR='.__DIR__.'/toml');
     }
 
     /**

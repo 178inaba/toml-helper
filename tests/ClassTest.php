@@ -142,13 +142,29 @@ class ClassTest extends TestCase
         $this->assertInstanceOf(Memcached::class, $this->execPrivateMethod('getMemcacheD'));
     }
 
-    private function execPrivateMethod($name)
+    /**
+     * @group standard
+     */
+    public function testParseToml()
+    {
+        $toml = $this->execPrivateMethod('parseToml', glob(__DIR__.'/toml/*.toml'));
+        $this->assertSame('value', $toml['test']['hash']['key']);
+    }
+
+    private function execPrivateMethod($name, ...$args)
     {
         $helper = TomlHelper::getInstance();
         $class = new ReflectionClass($helper);
         $method = $class->getMethod($name);
         $method->setAccessible(true);
 
-        return $method->invoke($helper);
+        $ret = null;
+        if (empty($args)) {
+            $ret = $method->invoke($helper);
+        } else {
+            $ret = $method->invokeArgs($helper, $args);
+        }
+
+        return $ret;
     }
 }
