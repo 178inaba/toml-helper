@@ -79,6 +79,16 @@ class ClassTest extends TestCase
     }
 
     /**
+     * @expectedException Error
+     * @group 7.0
+     */
+    public function testAssignmentTomlDir()
+    {
+        $helper = TomlHelper::getInstance();
+        $helper->tomlDir = 'test/dir';
+    }
+
+    /**
      * @group standard
      */
     public function testGetterSetter()
@@ -86,21 +96,25 @@ class ClassTest extends TestCase
         $useMem = false;
         $host = 'test';
         $port = 1234;
+        $tomlDir = 'test/dir';
 
         $helper = TomlHelper::getInstance();
         $helper->setUseMem($useMem)
             ->setHost($host)
-            ->setPort($port);
+            ->setPort($port)
+            ->setTomlDir($tomlDir);
 
         $this->assertSame($useMem, $helper->getUseMem());
         $this->assertSame($host, $helper->getHost());
         $this->assertSame($port, $helper->getPort());
+        $this->assertSame($tomlDir, $helper->getTomlDir());
 
         $helper2 = TomlHelper::getInstance();
 
         $this->assertSame($useMem, $helper2->getUseMem());
         $this->assertSame($host, $helper2->getHost());
         $this->assertSame($port, $helper2->getPort());
+        $this->assertSame($tomlDir, $helper2->getTomlDir());
     }
 
     /**

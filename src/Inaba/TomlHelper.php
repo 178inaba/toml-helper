@@ -38,6 +38,13 @@ class TomlHelper
     private $port = 11211;
 
     /**
+     * Toml file directory.
+     *
+     * @var string
+     */
+    private $tomlDir = '../tomls';
+
+    /**
      * Constructor.
      * Keep in private so as not new let from outside.
      * Can not override.
@@ -145,6 +152,30 @@ class TomlHelper
         return $this;
     }
 
+    /**
+     * Get toml file directory.
+     *
+     * @return string
+     */
+    public function getTomlDir()
+    {
+        return $this->tomlDir;
+    }
+
+    /**
+     * Set toml file directory.
+     * Can method chain.
+     *
+     * @param  string  $tomlDir
+     * @return $this
+     */
+    public function setTomlDir($tomlDir)
+    {
+        $this->tomlDir = $tomlDir;
+
+        return $this;
+    }
+
     // TODO
 
     /**
@@ -162,7 +193,7 @@ class TomlHelper
             $m = $this->getMemcacheD();
         }
 
-        $paths = _get_paths();
+        $paths = glob($this->tomlDir.'/*.toml');
         if ($m === null) {
             $toml = _parse_toml($paths);
         } else {
@@ -234,17 +265,5 @@ class TomlHelper
         }
 
         return $toml;
-    }
-
-    private function get_paths()
-    {
-        // get directory
-        $tomlDir = getenv('TOML_DIR');
-        if ($tomlDir === false) {
-            // default
-            $tomlDir = '../tomls';
-        }
-
-        return glob($tomlDir.'/*.toml');
     }
 }
