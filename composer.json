@@ -21,6 +21,9 @@
         "phpunit/phpunit": "^5.4"
     },
     "autoload": {
-        "files": ["toml-helper.php"]
+        "psr-4": {
+            "Inaba\\": "src/Inaba/"
+        },
+        "files": ["src/Inaba/helper.php"]
     }
 }

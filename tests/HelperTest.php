@@ -2,11 +2,11 @@
 
 use PHPUnit\Framework\TestCase;
 
-class TomlHelperTest extends TestCase
+class HelperTest extends TestCase
 {
     protected function setUp()
     {
-        putenv('TOML_DIR='.__DIR__.'/tomls');
+        putenv('TOML_DIR='.__DIR__.'/toml');
     }
 
     /**
