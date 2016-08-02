@@ -151,6 +151,20 @@ class ClassTest extends TestCase
         $this->assertSame('value', $toml['test']['hash']['key']);
     }
 
+    /**
+     * @group standard
+     */
+    public function testGet()
+    {
+        $helper = TomlHelper::getInstance();
+        $helper->setUseMem(true)
+            ->setHost('localhost')
+            ->setPort(11211)
+            ->setTomlDir(__DIR__.'/toml');
+
+        $this->assertSame('value', $helper->get('test.hash.key'));
+    }
+
     private function execPrivateMethod($name, ...$args)
     {
         $helper = TomlHelper::getInstance();

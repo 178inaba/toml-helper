@@ -176,15 +176,13 @@ class TomlHelper
         return $this;
     }
 
-    // TODO
-
     /**
      * Get toml value.
      *
      * @param  string|null  $keyChain
      * @return mixed
      */
-    public function toml($keyChain = null)
+    public function get($keyChain = null)
     {
         $toml = [];
 
