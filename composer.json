@@ -24,6 +24,6 @@
         "psr-4": {
             "Inaba\\": "src/Inaba/"
         },
-        "files": ["toml-helper.php"]
+        "files": ["src/Inaba/helper.php"]
     }
 }
