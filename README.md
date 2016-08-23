@@ -61,6 +61,6 @@ $ php index.php
 Rasmus Lerdorf
 ```
 
-## licence
+## License
 
-MIT
+[MIT](LICENSE)
